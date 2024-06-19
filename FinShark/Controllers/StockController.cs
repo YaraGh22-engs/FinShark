@@ -1,4 +1,5 @@
 ﻿using FinShark.Data;
+using FinShark.Mappers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,8 @@ namespace FinShark.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var stock = _context.Stocks.ToList();
+            var stock = _context.Stocks.ToList()
+                                       .Select(s=>s.ToStockDto());
             return Ok(stock);
         }
         [HttpGet("{id}")]
